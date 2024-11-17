@@ -26,6 +26,13 @@ void skipBlank()
     readChar();
 }
 
+void skipSlashComment()
+{
+  while (currentChar != '\n' && currentChar != EOF) {
+    readChar();
+  }
+}
+
 void skipComment()
 {
   // TODO
@@ -162,7 +169,19 @@ Token *getToken(void)
     readChar();
     return token;
   case CHAR_SLASH:
-    token = makeToken(SB_SLASH, lineNo, colNo);
+    readChar();
+    if (charCodes[currentChar] != CHAR_SLASH)
+    {
+      token = makeToken(SB_SLASH, lineNo, colNo-1);
+      return token;
+    }else{
+      readChar();
+      skipSlashComment();
+      return getToken();
+    }
+  // TODO: Thêm phép toán lấy phần dư %
+  case CHAR_PERCENT:
+    token = makeToken(SB_PERCENT, lineNo, colNo);
     readChar();
     return token;
   case CHAR_LT:
@@ -405,6 +424,10 @@ void printToken(Token *token)
     break;
   case SB_RSEL:
     printf("SB_RSEL\n");
+    break;
+  // TODO: Thêm kiểu dữ liệu String
+  case KW_STRING:
+    printf("KW_STRING\n");
     break;
   }
 }
