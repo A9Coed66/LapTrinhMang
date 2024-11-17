@@ -33,12 +33,6 @@ void skipComment()
   int cn = colNo;
   while (1)
   {
-    if (currentChar == EOF)
-    {
-      error(ERR_ENDOFCOMMENT, ln, cn);
-      return;
-    }
-
     if (charCodes[currentChar] == CHAR_TIMES)
     {
       readChar();
@@ -48,7 +42,11 @@ void skipComment()
         return;
       }
     }
-    
+    if (currentChar == EOF)
+    {
+      error(ERR_ENDOFCOMMENT, ln, cn);
+      return;
+    }
     if (charCodes[currentChar] == CHAR_LPAR)
     {
       ln = lineNo;
@@ -83,13 +81,23 @@ Token *readIdentKeyword(void)
 
 Token *readNumber(void)
 {
+  // TODO
   Token *token = makeToken(TK_NUMBER, lineNo, colNo);
-  token->value = 0;
+  int count = 0;
   while (charCodes[currentChar] == CHAR_DIGIT)
   {
-    token->value = token->value * 10 + (currentChar - '0');
+    token->string[count] = currentChar;
+    count++;
     readChar();
+    if (count > MAX_IDENT_LEN)
+    {
+      token->tokenType = TK_NONE;
+      token->string[count] = '\0';
+      error(ERR_IDENTTOOLONG, token->lineNo, token->colNo);
+    }
   }
+  token->string[count] = '\0';
+  token->value = atoi(token->string);
   return token;
 }
 
@@ -203,17 +211,9 @@ Token *getToken(void)
     readChar();
     return token;
   case CHAR_PERIOD:
+    token = makeToken(SB_PERIOD, lineNo, colNo);
     readChar();
-    if (charCodes[currentChar] == CHAR_RPAR)
-    {
-      token = makeToken(SB_RSEL, lineNo, colNo-1);
-      readChar();
-      return token;
-    }else {
-      token = makeToken(SB_PERIOD, lineNo, colNo-1);
-      return token;
-    }
-    
+    return token;
   case CHAR_COLON:
     token = makeToken(SB_COLON, lineNo, colNo);
     readChar();
@@ -238,12 +238,6 @@ Token *getToken(void)
       readChar();
       skipComment();
       return getToken();
-    }
-    else if (charCodes[currentChar] == CHAR_PERIOD)
-    {
-      token = makeToken(SB_LSEL, ln, cn);
-      readChar();
-      return token;
     }
     else
     {
