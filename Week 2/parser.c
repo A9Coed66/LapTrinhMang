@@ -308,6 +308,7 @@ void compileStatements2(void) {
   case KW_END:
       break;
   default:
+      eat(SB_SEMICOLON);
       error(ERR_INVALIDSTATEMENT, lookAhead->lineNo, lookAhead->colNo);
       break;
   }
