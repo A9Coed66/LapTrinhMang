@@ -15,8 +15,10 @@ BEGIN
   N := READI;
   I := 1;
   REPEAT
-    A(.I.) := READI;
-  UNTIL I > N;     
+    BEGIN
+      A(.I.) := READI;
+    END
+  UNTIL I > N ;   
 END;
 
 PROCEDURE OUTPUT;
@@ -37,8 +39,7 @@ BEGIN
     I := 1;
     REPEAT
      BEGIN
-       S := S + A(.I.)**2;
-       I := I**2 + 1;
+       I := I + 1;
      END
      UNTIL I > N;
 END;

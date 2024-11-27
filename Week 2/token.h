@@ -24,7 +24,8 @@ typedef enum {
   SB_ASSIGN, SB_EQ, SB_NEQ, SB_LT, SB_LE, SB_GT, SB_GE,
   SB_PLUS, SB_MINUS, SB_TIMES, SB_SLASH,
   SB_LPAR, SB_RPAR, SB_LSEL, SB_RSEL,
-  KW_STRING, KW_REPEAT, KW_UNTIL, KW_BYTES  // Thêm vòng lặp REPEAT, kết thúc UNTIL, kiểu dữ liệu Bytes
+  KW_STRING, KW_REPEAT, KW_UNTIL, KW_BYTES,  // Thêm vòng lặp REPEAT, kết thúc UNTIL, kiểu dữ liệu Bytes
+  SB_POWER  // Thêm phép toán lũy thừa ^
 } TokenType; 
 
 typedef struct {
