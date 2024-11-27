@@ -596,6 +596,11 @@ void compileTerm(void) {
 
 void compileTerm2(void) {
   switch (lookAhead->tokenType) {
+  case SB_POWER:
+      eat(SB_POWER);
+      compileFactor();
+      compileTerm2();
+      break;
   case SB_TIMES:
       eat(SB_TIMES);
       compileFactor();

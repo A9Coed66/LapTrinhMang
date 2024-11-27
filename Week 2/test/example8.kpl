@@ -39,7 +39,8 @@ BEGIN
     I := 1;
     REPEAT
      BEGIN
-       I := I + 1;
+       S := S + A(.I.)**2;
+       I := I**2 + 1;
      END
      UNTIL I > N;
 END;
