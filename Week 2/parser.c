@@ -211,6 +211,9 @@ void compileType(void) {
   case KW_CHAR:
       eat(KW_CHAR);
       break;
+  case KW_BYTES:
+      eat(KW_BYTES);
+      break;
   case TK_IDENT:
       eat(TK_IDENT);
       break;
@@ -647,6 +650,7 @@ void compileFactor(void) {
       }
       break;
   default:
+      eat(SB_SEMICOLON);
       error(ERR_INVALIDFACTOR, lookAhead->lineNo, lookAhead->colNo);
       break;
   }

@@ -1,0 +1,57 @@
+(** TEST 27/11/2024 **)
+
+PROGRAM  EXAMPLE5;  (* Example 5 *)
+CONST MAX = 10;
+TYPE T = INTEGER;
+VAR  A : ARRAY(. 10 .) OF T;
+     N : INTEGER;
+     CH : CHAR;
+     B: BYTES;
+
+PROCEDURE INPUT;
+VAR I : INTEGER;
+    TMP : INTEGER;
+BEGIN
+  N := READI;
+  I := 1;
+  REPEAT
+    A(.I.) := READI;
+  UNTIL I > N;     
+END;
+
+PROCEDURE OUTPUT;
+VAR I : INTEGER;
+BEGIN
+  FOR I := 1 TO N DO
+     BEGIN
+       CALL WRITEI(A(.I.));
+       CALL WRITELN;
+     END
+END;
+
+FUNCTION SUM : INTEGER;
+VAR I: INTEGER;
+    S : INTEGER;
+BEGIN
+    S := 0;
+    I := 1;
+    REPEAT
+     BEGIN
+       S := S + A(.I.)**2;
+       I := I**2 + 1;
+     END
+     UNTIL I > N;
+END;
+
+BEGIN
+   CH := 'y';
+   REPEAT 
+     BEGIN
+       CALL INPUT;
+       CALL OUTPUT;
+       CALL WRITEI(SUM);
+       CH := READC;
+     END
+    UNTIL CH != 'y';
+   
+END.  (* Example 5 *)
