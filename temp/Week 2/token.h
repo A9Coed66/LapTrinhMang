@@ -8,7 +8,7 @@
 #define __TOKEN_H__
 
 #define MAX_IDENT_LEN 15
-#define KEYWORDS_COUNT 24
+#define KEYWORDS_COUNT 20
 
 typedef enum {
   TK_NONE, TK_IDENT, TK_NUMBER, TK_CHAR, TK_EOF,
@@ -22,9 +22,8 @@ typedef enum {
 
   SB_SEMICOLON, SB_COLON, SB_PERIOD, SB_COMMA,
   SB_ASSIGN, SB_EQ, SB_NEQ, SB_LT, SB_LE, SB_GT, SB_GE,
-  SB_PLUS, SB_MINUS, SB_TIMES, SB_SLASH, SB_PERCENT,
-  SB_LPAR, SB_RPAR, SB_LSEL, SB_RSEL,
-  KW_STRING, KW_REPEAT, KW_UNTIL, KW_BYTES  // Thêm vòng lặp REPEAT, kết thúc UNTIL, kiểu dữ liệu Bytes
+  SB_PLUS, SB_MINUS, SB_TIMES, SB_SLASH,
+  SB_LPAR, SB_RPAR, SB_LSEL, SB_RSEL
 } TokenType; 
 
 typedef struct {
@@ -36,6 +35,7 @@ typedef struct {
 
 TokenType checkKeyword(char *string);
 Token* makeToken(TokenType tokenType, int lineNo, int colNo);
+char *tokenToString(TokenType tokenType);
 
 
 #endif
