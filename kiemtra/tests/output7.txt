@@ -1,0 +1,3 @@
+Program SWAP
+    Var A : Int
+    Var B : Int
